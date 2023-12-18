@@ -13,7 +13,7 @@ const createUserValid = (req, res, next) => {
   if (!lastName || typeof lastName !== "string") {
     errorMessage.push("last name");
   }
-  if (!email || typeof email !== "string" || email.includes("@gmail")) {
+  if (!email || typeof email !== "string" || !email.includes("@gmail")) {
     errorMessage.push("email should contain @gmail domain");
   }
   if (!phoneNumber || typeof phoneNumber !== "string") {
@@ -34,7 +34,7 @@ const createUserValid = (req, res, next) => {
 const updateUserValid = (req, res, next) => {
   // TODO: Implement validatior for user entity during update
   const { firstName, lastName, email, phoneNumber, password } = req.body;
-  if (firstName || lastName || email || phoneNumber || password) {
+  if (firstName || lastName || (email && email.includes("@gmail")) || phoneNumber || password) {
     next();
   }
 
