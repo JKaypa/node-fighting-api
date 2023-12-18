@@ -15,7 +15,7 @@ router.get(
       res.data = users;
     } catch (error) {
       res.statusCode = 500;
-      res.err = "Something failed!";
+      res.err = error.mesagge;
     } finally {
       next();
     }
@@ -32,7 +32,7 @@ router.get(
       res.data = user;
     } catch (error) {
       res.statusCode = 404;
-      res.err = "User not found";
+      res.err = error.message;
     } finally {
       next();
     }
@@ -50,7 +50,7 @@ router.post(
       res.data = user;
     } catch (error) {
       res.statusCode = 400;
-      res.err = "entity to create isn't valid";
+      res.err = error.message;
     } finally {
       next();
     }
@@ -67,8 +67,8 @@ router.put(
       res.statusCode = 200;
       res.data = updatedUser;
     } catch (error) {
-      res.statusCode = 500;
-      res.err = "User was not updated";
+      res.statusCode = 404;
+      res.err = error.message;
     } finally {
       next();
     }
@@ -78,16 +78,17 @@ router.put(
 
 router.delete(
   "/:id",
-  (req, res) => {
+  (req, res, next) => {
     try {
       userService.remove(req.params.id);
       res.statusCode = 200;
       res.data = "User deleted";
     } catch (error) {
       res.statusCode = 404;
-      res.err = "User was not deleted";
+      res.err = error.message;
+    } finally {
+      next();
     }
-    res.send();
   },
   responseMiddleware
 );

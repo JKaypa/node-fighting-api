@@ -8,13 +8,13 @@ class UserService {
     if (all) {
       return all;
     }
-    return null;
+    throw Error("Something failed!");
   }
 
   search(search) {
     const item = userRepository.getOne(search);
     if (!item) {
-      return null;
+      throw Error("User not found!");
     }
     return item;
   }
@@ -27,15 +27,23 @@ class UserService {
       const user = userRepository.create(data);
       return user;
     }
-    return null;
+    throw Error("Email or phone number already exists!");
   }
 
   edit(id, data) {
+    const user = userRepository.getOne({ id });
+    if (!user) {
+      throw Error("User not found!");
+    }
     const updatedData = userRepository.update(id, data);
     return updatedData;
   }
 
   remove(id) {
+    const user = userRepository.getOne({ id });
+    if (!user) {
+      throw new Error("User not found!");
+    }
     const deleted = userRepository.delete(id);
     return deleted;
   }
