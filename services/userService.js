@@ -27,7 +27,7 @@ class UserService {
       const user = userRepository.create(data);
       return user;
     }
-    throw Error("Email or phone number already exists!");
+    throw Error("Email or phone number already exist!");
   }
 
   edit(id, data) {
