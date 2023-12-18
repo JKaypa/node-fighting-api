@@ -13,8 +13,8 @@ const createUserValid = (req, res, next) => {
   if (!lastName || typeof lastName !== "string") {
     errorMessage.push("last name");
   }
-  if (!email || typeof email !== "string") {
-    errorMessage.push("email");
+  if (!email || typeof email !== "string" || email.includes("@gmail")) {
+    errorMessage.push("email should contain @gmail domain");
   }
   if (!phoneNumber || typeof phoneNumber !== "string") {
     errorMessage.push("phone number");
