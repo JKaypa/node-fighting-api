@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { fightersService } from "../services/fightService.js";
-// import { createUserValid, updateUserValid } from "../middlewares/fight.validation.middleware.js";
 import { responseMiddleware } from "../middlewares/response.middleware.js";
 
 const router = Router();
@@ -43,7 +42,6 @@ router.get(
 
 router.post(
   "/",
-  // createFighterValid,
   (req, res, next) => {
     try {
       const fight = fightersService.create(req.body);
@@ -61,7 +59,6 @@ router.post(
 
 router.put(
   "/:id",
-  // updateFighterValid,
   (req, res, next) => {
     try {
       const updatedUser = fightersService.edit(req.params.id, req.body);
